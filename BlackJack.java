@@ -2,14 +2,17 @@
 import static java.lang.System.*;
 import java.util.Scanner;
 
+/**
+ * Main Class for Single Player BlackJack
+ */
 public class BlackJack
 {
 	//add in Player instance variable
 	//add in Dealer instance variable
 	private Player player;
 	private Dealer dealer;
-	private boolean playAgain = true;
-	private Scanner kb;
+	public boolean playAgain = true;
+	public Scanner kb;
 
 	public BlackJack()
 	{
@@ -31,32 +34,33 @@ public class BlackJack
 			player.resetHand();
 
 			dealer.shuffle();
-			firstDeal();
-			printPlayer();
+			dealTwo(player, dealer);
+			dealTwo(dealer, dealer);
+			printPlayer(player, dealer);
 			playerHits();
 			
-			dealerHits();
+			dealerHits(dealer, dealer);
 			printBoth();
-			compareHands();
+			compareHands(player, dealer);
 			gameOverHandler();
 		}
 
 	}
 	
 	/**
-	 * initial deal
+	 * deals two cards
 	 */
-	public void firstDeal(){
-		dealer.addCardToHand(dealer.deal());
-		player.addCardToHand(dealer.deal());
-		dealer.addCardToHand(dealer.deal());
-		player.addCardToHand(dealer.deal());
+	public void dealTwo(AbstractPlayer obj, Dealer dealer){
+		obj.addCardToHand(dealer.deal());
+		obj.addCardToHand(dealer.deal());
+	
 	}
+	
 
 	/**
 	 * Print Player Hand (for use before Dealer's turn)
 	 */
-	public void printPlayer(){
+	public void printPlayer(AbstractPlayer player, AbstractPlayer dealer){
 		System.out.println("\nHand Value : " + player.getHandValue());
 		System.out.println("You have: " + player.getHand());
 		System.out.println("\nDealer has: " + dealer.getSpecificCard(0) + "  and [hidden]");
@@ -96,7 +100,7 @@ public class BlackJack
 				player.addCardToHand(dealer.deal());
 				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 				ascii();
-				printPlayer();
+				printPlayer(player,dealer);
 				if(checkPlayer(player) == true){
 					break;
 				}
@@ -110,14 +114,14 @@ public class BlackJack
 	/**
 	 * loop for dealer to hit or stand
 	 */
-	public void dealerHits(){
+	public void dealerHits(AbstractPlayer player, Dealer dealer){
 		while(true){
-			if(checkPlayer(dealer) == true){
+			if(checkPlayer(player) == true){
 				break;
 			}
-			if(dealer.hit() == true){
-				dealer.addCardToHand(dealer.deal());
-				if(checkPlayer(dealer) == true){
+			if(player.hit() == true){
+				player.addCardToHand(dealer.deal());
+				if(checkPlayer(player) == true){
 					break;
 				}
 			}
@@ -129,41 +133,43 @@ public class BlackJack
 
 	/**
 	 * print winner and add to win int
+	 * @param player hand to compare to dealer
+	 * @param x player number
 	 */
-	public void compareHands(){
+	public void compareHands(Playerable player, Playerable dealer){
 		int dv = dealer.getHandValue();
 		int pv = player.getHandValue();
 
 		//blackjacks
 		if(pv == 21 && dv != 21){
-			System.out.println("\nBlackjack! Player Wins");
+			System.out.println("Blackjack! Player Wins\n");
 		}
 		else if(pv == 21 && dv == 21){
-			System.out.println("\nBoth Players Blackjack! Tie!");
+			System.out.println("Both Players Blackjack! Tie!\n");
 		}
 		else if(pv != 21 && dv == 21){
-			System.out.println("\nBlackjack! Dealer Wins");
+			System.out.println("Blackjack! Dealer Wins\n");
 		}
 		//both bust
 		else if(pv > 21 && dv > 21){
-			System.out.println("\nTie! Both Bust");
+			System.out.println("Tie! Both Bust\n");
 		}
 		//one busts
 		else if(pv > 21 && dv <= 21){
-			System.out.println("\nPlayer Bust, Dealer Wins!");
+			System.out.println("Player Bust, Dealer Wins!\n");
 		}
 		else if(pv <= 21 && dv > 21){
-			System.out.println("\nDealer Bust, Player Wins!");
+			System.out.println("Dealer Bust, Player Wins!\n");
 		}
 		//standard
 		else if(pv < dv && pv <= 21 && dv <=21){
-			System.out.println("\nDealer Wins!");
+			System.out.println("Dealer Wins!\n");
 		}
 		else if(pv == dv && pv <= 21 && dv <=21){
-			System.out.println("\nTie!");
+			System.out.println("Tie!\n");
 		}
 		else if(pv > dv && pv <= 21 && dv <=21){
-			System.out.println("\nPlayer Wins!");
+			System.out.println("Player Wins!\n");
 		}
 	}
 

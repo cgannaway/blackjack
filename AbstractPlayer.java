@@ -6,6 +6,7 @@ public abstract class AbstractPlayer implements Playerable
 {
    private ArrayList<Card> hand;
    private int winCount;
+   private String name;
 
    //constructors
    AbstractPlayer(){
@@ -31,6 +32,13 @@ public abstract class AbstractPlayer implements Playerable
    public int getWinCount() { return winCount; }
 
    public int getHandSize() { return hand.size(); }
+
+   public void setName(String Name){
+      name = Name;
+   }
+   public String getName(){
+		return name;
+	}
 
    public int getHandValue()
    {

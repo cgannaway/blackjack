@@ -4,12 +4,13 @@
 public class Dealer extends AbstractPlayer{
 	
 	//instance variable - Deck 
-	Deck deck;
+	private Deck deck;
 
 	//constructors
 	public Dealer(){
 		super();
 		deck = new Deck();
+		setName("Dealer");
 	}
 
 	//method to shuffle

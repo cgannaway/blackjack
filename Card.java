@@ -1,4 +1,3 @@
-import sun.font.SunFontManager.FamilyDescription;
 
 public abstract class Card
 {

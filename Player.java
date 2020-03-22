@@ -13,8 +13,13 @@ public class Player extends AbstractPlayer{
 		super();
 		playerScanner = new Scanner(System.in);
 	}
+	public Player(String n){
+		super();
+		playerScanner = new Scanner(System.in);
+		setName(n);
+	}
 
-
+	
 	
 	
 	public boolean hit(){
