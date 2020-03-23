@@ -19,17 +19,18 @@ public class Deck
 		//initialize data - stackOfCards - topCardIndex
 		topCardIndex = 51;
 		stackOfCards = new ArrayList<Card>();
-		
+		addCards();
+	}
+
+	//modifiers
+	public void addCards(){
 		for(int i = 0; i < NUMSUITS; i++ ){
 			for(int j=0; j < NUMFACES; j++){
 				stackOfCards.add(new BlackJackCard(j, SUITS[i]));
 			}
 		}
-		
 	}
-
-	//modifiers
-   public void shuffle ()
+    public void shuffle ()
 	{
 		//shuffle the deck
 		//reset variables as needed
@@ -49,7 +50,18 @@ public class Deck
 
 	public Card nextCard()
 	{
-		return stackOfCards.get(topCardIndex--);
+		try {
+			return stackOfCards.get(topCardIndex--);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("deck empty, adding cards");
+			addCards();
+			shuffle();
+			topCardIndex = 51;
+			return stackOfCards.get(topCardIndex--);
+
+		}
+		
+		
 	}
 
 	public String toString()

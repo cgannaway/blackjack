@@ -44,7 +44,7 @@ public class BlackJack
 			compareHands(player, dealer);
 			gameOverHandler();
 		}
-
+		exit(0);
 	}
 	
 	/**
@@ -72,10 +72,10 @@ public class BlackJack
 	public void printBoth(){
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		ascii();
-		System.out.println("\n\nPlayer:");
+		System.out.println("\n\nPlayer: (Wins: " + player.getWinCount() + ")");
 		System.out.println("Value: " + player.getHandValue());
 		System.out.println("Cards: " + player.getHand());
-		System.out.println("\nDealer:");
+		System.out.println("\nDealer: (Wins: " + dealer.getWinCount() + ")");
 		System.out.println("Value: " + dealer.getHandValue());
 		System.out.println("Cards: " + dealer.getHand());
 	}
@@ -143,12 +143,14 @@ public class BlackJack
 		//blackjacks
 		if(pv == 21 && dv != 21){
 			System.out.println("Blackjack! Player Wins\n");
+			player.setWinCount(player.getWinCount() + 1);
 		}
 		else if(pv == 21 && dv == 21){
 			System.out.println("Both Players Blackjack! Tie!\n");
 		}
 		else if(pv != 21 && dv == 21){
 			System.out.println("Blackjack! Dealer Wins\n");
+			dealer.setWinCount(dealer.getWinCount() + 1);
 		}
 		//both bust
 		else if(pv > 21 && dv > 21){
@@ -157,19 +159,23 @@ public class BlackJack
 		//one busts
 		else if(pv > 21 && dv <= 21){
 			System.out.println("Player Bust, Dealer Wins!\n");
+			dealer.setWinCount(dealer.getWinCount() + 1);
 		}
 		else if(pv <= 21 && dv > 21){
 			System.out.println("Dealer Bust, Player Wins!\n");
+			player.setWinCount(player.getWinCount() + 1);
 		}
 		//standard
 		else if(pv < dv && pv <= 21 && dv <=21){
 			System.out.println("Dealer Wins!\n");
+			dealer.setWinCount(dealer.getWinCount() + 1);
 		}
 		else if(pv == dv && pv <= 21 && dv <=21){
 			System.out.println("Tie!\n");
 		}
 		else if(pv > dv && pv <= 21 && dv <=21){
 			System.out.println("Player Wins!\n");
+			player.setWinCount(player.getWinCount() + 1);
 		}
 	}
 
@@ -194,6 +200,7 @@ public class BlackJack
 	}
 
 	public void ascii(){
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		System.out.println("______ _            _    _            _    \n| ___ \\ |          | |  (_)          | |   \n| |_/ / | __ _  ___| | ___  __ _  ___| | __\n| ___ \\ |/ _` |/ __| |/ / |/ _` |/ __| |/ /\n| |_/ / | (_| | (__|   <| | (_| | (__|   < \n\\____/|_|\\__,_|\\___|_|\\_\\ |\\__,_|\\___|_|\\_\\\n	               _/ |\n	              |__/");
 	}
 

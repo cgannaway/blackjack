@@ -15,7 +15,7 @@ public class BlackJackMultiplayer extends BlackJack {
 
     public void playGame(){
         while(playAgain == true){
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            
             ascii();
 
             ((Dealer)playerlist.get(0)).shuffle();
@@ -29,8 +29,8 @@ public class BlackJackMultiplayer extends BlackJack {
             compareHands();
 
             gameOverHandler();
-
         }
+        System.exit(0);
     }
 
     /**
@@ -38,12 +38,12 @@ public class BlackJackMultiplayer extends BlackJack {
      */
     public void addPlayers(){
         playerlist.add(dealer);
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        
         ascii();
         System.out.print("\nEnter Player 1's name: ");
         playerlist.add(new Player(kb.next()));
         while(true){
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            
             ascii();
             System.out.println("\nEnter another name to add another player, or");
             System.out.print("type \"continue\" to continue: ");
@@ -85,7 +85,7 @@ public class BlackJackMultiplayer extends BlackJack {
                 if(checkPlayer(playerlist.get(i)) == true){
                     break;
                 }
-                System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                
                 ascii();
                 System.out.println("" + playerlist.get(i).getName() + " is current player");
                 printPlayer(playerlist.get(i), playerlist.get(0));
@@ -103,23 +103,28 @@ public class BlackJackMultiplayer extends BlackJack {
     }
 
     public void showAll(){
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        
         ascii();
         for(int i = 0; i < playerlist.size(); i++){
-            System.out.println("\n" + playerlist.get(i).getName() + "'s Hand: (Value: " + playerlist.get(i).getHandValue() + ")");
+            System.out.println("\n" + playerlist.get(i).getName() + "'s Hand: (Value: " + playerlist.get(i).getHandValue() + ") (Wins: " + playerlist.get(i).getWinCount() + ")");
             System.out.println(playerlist.get(i).getHand());
         }
     }
 
     public void compareHands(){
-        System.out.println();
+        System.out.println("--------------------------------------------------");
         for(int i = 1; i < playerlist.size(); i++){
-            System.out.print("Player: " + playerlist.get(i).getName() + ". ");
+            System.out.print("Player: " + playerlist.get(i).getName() + " -- ");
             super.compareHands(playerlist.get(i), playerlist.get(0));
         }
+        System.out.println("--------------------------------------------------");
     }
 
     public void gameOverHandler(){
+        kb.nextLine();
+        System.out.println("Press enter to advance");
+        kb.nextLine();
+        ascii();
         super.gameOverHandler();
         if(playAgain == true){
             System.out.println("Would you like to change players? (yes/no");
@@ -129,7 +134,7 @@ public class BlackJackMultiplayer extends BlackJack {
                 playerlist.clear();
                 addPlayers();
             }
-            else{ /////////////////////////////////////////////////////////////////////////////////////////////error
+            else{
                 resetAllHands();
             }
         }
