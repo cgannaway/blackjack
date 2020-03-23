@@ -1,6 +1,9 @@
+package tests;
+
 
 
 import static java.lang.System.*;
+import src.*;
 
 public class DealerTestOne
 {
